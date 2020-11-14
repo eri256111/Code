@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+
+#define FAST ios::sync_with_stdio(false);cin.tie(0);
+#define endl '\n'
+#define Fr(i,s,e) for(int i=s;i<=e;i++)
+#define pii pair<int,int>
+#define Ft first
+#define Sd second
+#define ll long long
+#define All(v) v.begin(),v.end()
+#define Mvalid(mp,val) mp.find(val)!=mp.end()
+
+#define MAX 2147483647
+
+using namespace std;
+
+signed main(){
+    FAST;
+    int n,k,left,right,sum;
+    while(cin>>n && n){
+        vector<int> v(n+1);
+        map<int,int> rmd;rmd[0]=0;
+        Fr(i,1,n)cin>>v[i];
+        left=right=MAX,sum=0;
+        cin>>k;
+        Fr(i,1,n){
+            sum=(sum+v[i]%k)%k;
+            if(sum<0)sum+=k;
+            if(Mvalid(rmd,sum) && (rmd[sum]<left || i<right))
+                left=rmd[sum],right=i;
+            rmd[sum]=i;
+        }
+        if(left==MAX)cout<<"no solutions."<<endl;
+        else cout<<left+1<<' '<<right<<endl;
+    }
+}
